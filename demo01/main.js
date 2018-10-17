@@ -1,0 +1,1 @@
+document.write("<h1>大噶好</h1>");
