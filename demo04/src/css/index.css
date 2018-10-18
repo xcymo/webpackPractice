@@ -2,3 +2,13 @@ body{
     background-color: blanchedalmond;
     color :#868a42;
 }
+#huonv{
+    background: url(../imgs/huonv.jpg) center no-repeat;
+    width: 500px;
+    height: 300px;
+    background-size: contain;
+}
+
+.qop{
+    width: 500px;
+}
