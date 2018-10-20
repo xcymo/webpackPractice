@@ -21,7 +21,14 @@ module.exports = {
                 test: /\.css$/,
                 use: extractTextPlugin.extract({
                     fallback: "style-loader",//此项配置是为了预防use中的loader出错而准备的后路，若出错，则使用此项loader
-                    use: "css-loader"
+                    use: [{
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 1
+                        }
+                    },
+                        "postcss-loader"
+                    ]
                 })
             }, {
                 test: /\.(png|jpg|gif|jpeg)/,
