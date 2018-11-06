@@ -1,1 +1,0 @@
-document.write("<h1>喔系渣渣辉</h1>");

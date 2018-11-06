@@ -3,5 +3,9 @@
   height: 250px;
   background-color: #000;
   transform: rotate(45deg);
-  box-shadow: 1px 1px 0 #000000;
+  box-shadow: 0px 1px 0 #010000;
+  display: flex;
+}
+.sl {
+  background-color: #5a0;
 }
