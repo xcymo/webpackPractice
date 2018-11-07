@@ -1,10 +1,12 @@
 const path = require("path");
+const webpack = require("webpack");
 const uglify = require("uglifyjs-webpack-plugin");
 const htmlPlugin = require("html-webpack-plugin");
 const extractTextPlugin = require("extract-text-webpack-plugin");
 const glob = require("glob"); // 扫描文件
 const purifycssPlugin = require("purifycss-webpack");
-
+const entry = require("./webpack_config/entry.js");
+const module_ = require("./webpack_config/module_.js")
 var myIP = "192.168.199.167"
 var website;
 if (process.env.type == "build") {
@@ -19,7 +21,8 @@ if (process.env.type == "build") {
 module.exports = {
     devtool: 'source-map',
     entry: {
-        entry: './src/entry.js'
+        entry: "./src/entry.js",
+        jquery: "jquery"
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -71,7 +74,15 @@ module.exports = {
         ]
     },
     plugins: [
-        // new uglify(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "jquery",                         //分离的js
+            filename: "assets/js/jquery.min.js",    //文件路径
+            minChunks: 2                            //最小包数？不懂
+        }),
+        // new uglify(),                     //压缩js
+        new webpack.ProvidePlugin({         //最好用这种引入方法，避免不使用此插件时仍然将其打包的情况
+            $: "jquery"
+        }),
         new htmlPlugin({
             minify: {
                 removeAttributeQuotes: true
@@ -89,5 +100,10 @@ module.exports = {
         port: 4567,
         compress: true,
         contentBase: path.resolve(__dirname, "dist")
+    },
+    watchOptions: {
+        poll: 1000,                 //监控间隔
+        aggregateTimeout: 2000,     //连续保存间隔
+        ignored: /node_modules/     //忽略文件夹
     }
 }
